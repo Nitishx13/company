@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 10 10 10;
+    --foreground: 250 250 250;
+  }
+
+  * {
+    @apply border-chalk-gray/20;
+  }
+
+  body {
+    @apply bg-chalk-dark text-chalk-white antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-chalk-black;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-chalk-gray/30 hover:bg-chalk-gray/50;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .glow-text {
+    text-shadow: 0 0 20px rgba(250, 250, 250, 0.5);
+  }
+
+  .chalk-line {
+    stroke: #FAFAFA;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(250, 250, 250, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250, 250, 250, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+}
