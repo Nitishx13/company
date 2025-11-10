@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Onyxry — Technology That Elevates Humanity",
+  title: "Pinaqyn — Technology That Elevates Humanity",
   description: "We build technology and businesses that elevate human potential — through design, logic, and deep care.",
   keywords: ["digital agency", "AI development", "UX design", "web development", "ethical tech"],
 };

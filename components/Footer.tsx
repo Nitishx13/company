@@ -44,7 +44,7 @@ export default function Footer() {
                 <line x1="40" y1="60" x2="80" y2="60" className="chalk-line" />
                 <circle cx="60" cy="60" r="35" className="chalk-line" />
               </svg>
-              <span className="text-xl font-bold tracking-tight">ONYXRY</span>
+              <span className="text-xl font-bold tracking-tight">PINAQYN</span>
             </Link>
             <p className="text-chalk-gray text-sm leading-relaxed mb-6">
               Technology that elevates humanity through design, logic, and deep care.
@@ -111,10 +111,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@onyxry.agency"
+                  href="mailto:hello@pinaqyn.agency"
                   className="text-chalk-gray hover:text-chalk-white transition-colors duration-300 text-sm"
                 >
-                  hello@onyxry.agency
+                  hello@pinaqyn.agency
                 </a>
               </li>
               <li className="text-chalk-gray text-sm">
@@ -128,7 +128,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-chalk-gray/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-chalk-gray text-sm">
-              © {currentYear} Onyxry. All rights reserved.
+              © {currentYear} Pinaqyn. All rights reserved.
             </p>
             <div className="flex gap-6 text-sm">
               <Link

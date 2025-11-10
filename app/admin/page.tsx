@@ -15,7 +15,7 @@ export default function AdminLogin() {
     e.preventDefault();
     
     // Simple authentication (replace with real auth in production)
-    if (credentials.email === 'admin@onyxry.agency' && credentials.password === 'admin123') {
+    if (credentials.email === 'admin@pinaqyn.agency' && credentials.password === 'admin123') {
       localStorage.setItem('adminAuth', 'true');
       router.push('/admin/dashboard');
     } else {
@@ -38,7 +38,7 @@ export default function AdminLogin() {
             <line x1="40" y1="60" x2="80" y2="60" className="chalk-line" />
             <circle cx="60" cy="60" r="35" className="chalk-line" />
           </svg>
-          <h1 className="text-3xl font-bold mb-2">ONYXRY</h1>
+          <h1 className="text-3xl font-bold mb-2">PINAQYN</h1>
           <p className="text-chalk-gray font-mono text-sm">ADMIN PORTAL</p>
         </div>
 
@@ -85,7 +85,7 @@ export default function AdminLogin() {
         {/* Demo Credentials */}
         <div className="mt-8 p-4 border border-chalk-gray/20 text-center">
           <p className="text-chalk-gray text-xs font-mono mb-2">DEMO CREDENTIALS</p>
-          <p className="text-chalk-white text-sm">admin@onyxry.agency</p>
+          <p className="text-chalk-white text-sm">admin@pinaqyn.agency</p>
           <p className="text-chalk-white text-sm">admin123</p>
         </div>
       </div>

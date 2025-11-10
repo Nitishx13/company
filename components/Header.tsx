@@ -63,7 +63,7 @@ export default function Header() {
                 className="chalk-line"
               />
             </svg>
-            <span className="text-xl font-bold tracking-tight">ONYXRY</span>
+            <span className="text-xl font-bold tracking-tight">PINAQYN</span>
           </Link>
 
           {/* Desktop Navigation */}

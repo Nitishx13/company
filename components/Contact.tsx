@@ -57,10 +57,10 @@ export default function Contact() {
                   EMAIL
                 </div>
                 <a
-                  href="mailto:hello@onyxry.agency"
+                  href="mailto:hello@pinaqyn.agency"
                   className="text-xl hover:glow-text transition-all duration-300"
                 >
-                  hello@onyxry.agency
+                  hello@pinaqyn.agency
                 </a>
               </div>
 

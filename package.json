@@ -1,7 +1,7 @@
 {
-  "name": "onyxry-agency",
+  "name": "pinaqyn-agency",
   "version": "1.0.0",
-  "description": "Onyxry - A world-class digital agency focused on meaningful technology",
+  "description": "Pinaqyn - A world-class digital agency focused on meaningful technology",
   "private": true,
   "scripts": {
     "dev": "next dev",

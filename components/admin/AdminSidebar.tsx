@@ -64,7 +64,7 @@ export default function AdminSidebar() {
             <circle cx="60" cy="60" r="35" className="chalk-line" />
           </svg>
           <div>
-            <div className="font-bold text-sm">ONYXRY</div>
+            <div className="font-bold text-sm">PINAQYN</div>
             <div className="text-xs text-chalk-gray font-mono">ADMIN</div>
           </div>
         </Link>

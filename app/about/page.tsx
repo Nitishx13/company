@@ -11,7 +11,7 @@ export default function AboutPage() {
       <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
-            About Onyxry
+            About Pinaqyn
           </h1>
           <div className="w-32 h-px bg-chalk-white mx-auto mb-8" />
           <p className="text-xl md:text-2xl text-chalk-gray leading-relaxed">

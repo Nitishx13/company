@@ -84,7 +84,7 @@ export default function Hero() {
           ref={titleRef}
           className="text-6xl md:text-8xl font-bold mb-6 tracking-tight"
         >
-          {splitText('ONYXRY')}
+          {splitText('PINAQYN')}
         </h1>
 
         {/* Tagline */}

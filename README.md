@@ -1,4 +1,4 @@
-# Onyxry — Digital Agency
+# Pinaqyn — Digital Agency
 
 > **Technology that elevates humanity**
 
@@ -143,11 +143,11 @@ gsap.to('.element', {
 
 ## 📝 License
 
-© 2025 Onyxry. All rights reserved.
+© 2025 Pinaqyn. All rights reserved.
 
 ## 🤝 Contact
 
-- **Email**: hello@onyxry.agency
+- **Email**: hello@pinaqyn.agency
 - **Location**: Global — Remote First
 
 ---
