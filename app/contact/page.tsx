@@ -55,6 +55,53 @@ export default function ContactPage() {
 
               {/* Contact Methods */}
               <div className="space-y-8 mb-12">
+                {/* Call */}
+                <div>
+                  <div className="font-mono text-xs tracking-wider text-chalk-gray mb-2">
+                    CALL
+                  </div>
+                  <div className="flex flex-col gap-2 text-2xl">
+                    <a
+                      href="tel:+918882816805"
+                      className="hover:glow-text transition-all duration-300"
+                    >
+                      +91 8882816805
+                    </a>
+                    <a
+                      href="tel:+919958571141"
+                      className="hover:glow-text transition-all duration-300"
+                    >
+                      +91 9958571141
+                    </a>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div>
+                  <div className="font-mono text-xs tracking-wider text-chalk-gray mb-2">
+                    WHATSAPP
+                  </div>
+                  <div className="flex flex-col gap-2 text-2xl">
+                    <a
+                      href="https://wa.me/918882816805"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:glow-text transition-all duration-300"
+                    >
+                      +91 8882816805
+                    </a>
+                    <a
+                      href="https://wa.me/919958571141"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:glow-text transition-all duration-300"
+                    >
+                      +91 9958571141
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email */}
                 <div>
                   <div className="font-mono text-xs tracking-wider text-chalk-gray mb-2">
                     EMAIL
@@ -65,20 +112,6 @@ export default function ContactPage() {
                   >
                     hello@pinaqyntech.com
                   </a>
-                </div>
-
-                <div>
-                  <div className="font-mono text-xs tracking-wider text-chalk-gray mb-2">
-                    LOCATION
-                  </div>
-                  <p className="text-xl">Global — Remote First</p>
-                </div>
-
-                <div>
-                  <div className="font-mono text-xs tracking-wider text-chalk-gray mb-2">
-                    RESPONSE TIME
-                  </div>
-                  <p className="text-xl">Within 24 hours</p>
                 </div>
               </div>
 

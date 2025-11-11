@@ -84,7 +84,7 @@ export default function Hero() {
           ref={titleRef}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight neon-text"
         >
-          {splitText('Empowering Brands with Technology, Creativity & AI')}
+          {splitText('Your AI-Driven Partner for Smarter, Faster Growth.')}
         </h1>
 
         {/* Tagline */}
