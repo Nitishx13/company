@@ -111,10 +111,10 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@pinaqyntech.com"
+                  href="mailto:hello@pinaqyn.in"
                   className="text-chalk-gray hover:text-chalk-white transition-colors duration-300 text-sm"
                 >
-                  hello@pinaqyntech.com
+                  hello@pinaqyn.in
                 </a>
               </li>
               <li className="text-chalk-gray text-sm">

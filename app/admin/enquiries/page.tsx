@@ -13,72 +13,14 @@ interface Enquiry {
   service: string;
   budget: string;
   message: string;
-  date: string;
   status: 'new' | 'contacted' | 'qualified' | 'proposal' | 'won' | 'lost';
+  created_at?: string;
 }
-
-const mockEnquiries: Enquiry[] = [
-  {
-    id: 1,
-    name: 'Sarah Johnson',
-    email: 'sarah@techcorp.com',
-    company: 'TechCorp Inc',
-    service: 'AI Development',
-    budget: '$50k-$100k',
-    message: 'We need an AI solution for customer service automation...',
-    date: '2025-10-07 14:30',
-    status: 'new',
-  },
-  {
-    id: 2,
-    name: 'Mike Chen',
-    email: 'mike@designstudio.com',
-    company: 'Design Studio',
-    service: 'UX/UI Design',
-    budget: '$25k-$50k',
-    message: 'Looking for a complete redesign of our mobile app...',
-    date: '2025-10-07 10:15',
-    status: 'contacted',
-  },
-  {
-    id: 3,
-    name: 'Emma Wilson',
-    email: 'emma@startup.io',
-    company: 'Startup.io',
-    service: 'Systems Architecture',
-    budget: '$100k+',
-    message: 'Need scalable architecture for our SaaS platform...',
-    date: '2025-10-06 16:45',
-    status: 'qualified',
-  },
-  {
-    id: 4,
-    name: 'David Brown',
-    email: 'david@enterprise.com',
-    company: 'Enterprise Solutions',
-    service: 'AI Development',
-    budget: '$100k+',
-    message: 'Enterprise AI implementation for data analytics...',
-    date: '2025-10-05 09:20',
-    status: 'proposal',
-  },
-  {
-    id: 5,
-    name: 'Lisa Anderson',
-    email: 'lisa@healthtech.com',
-    company: 'HealthTech',
-    service: 'Mathematical Animations',
-    budget: '$10k-$25k',
-    message: 'Interactive medical visualizations needed...',
-    date: '2025-10-04 11:00',
-    status: 'won',
-  },
-];
 
 export default function EnquiriesPage() {
   const router = useRouter();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [enquiries, setEnquiries] = useState<Enquiry[]>(mockEnquiries);
+  const [enquiries, setEnquiries] = useState<Enquiry[]>([]);
   const [selectedEnquiry, setSelectedEnquiry] = useState<Enquiry | null>(null);
   const [filterStatus, setFilterStatus] = useState<string>('all');
 
@@ -91,14 +33,43 @@ export default function EnquiriesPage() {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (!isAuthenticated) return;
+    (async () => {
+      try {
+        const res = await fetch('/api/enquiries');
+        const json = await res.json();
+        if (!res.ok) throw new Error(json?.error || 'Failed to load enquiries');
+        setEnquiries(json.enquiries || []);
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error(err);
+      }
+    })();
+  }, [isAuthenticated]);
+
   const filteredEnquiries = filterStatus === 'all'
     ? enquiries
     : enquiries.filter(e => e.status === filterStatus);
 
-  const updateStatus = (id: number, newStatus: Enquiry['status']) => {
-    setEnquiries(enquiries.map(e => 
-      e.id === id ? { ...e, status: newStatus } : e
-    ));
+  const updateStatus = async (id: number, newStatus: Enquiry['status']) => {
+    const prev = enquiries;
+    const optimistic = enquiries.map(e => (e.id === id ? { ...e, status: newStatus } : e));
+    setEnquiries(optimistic);
+    try {
+      const res = await fetch('/api/enquiries', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status: newStatus }),
+      });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json?.error || 'Failed to update');
+    } catch (err) {
+      // rollback on failure
+      setEnquiries(prev);
+      // eslint-disable-next-line no-console
+      console.error(err);
+    }
   };
 
   if (!isAuthenticated) {
@@ -176,7 +147,7 @@ export default function EnquiriesPage() {
                     {enquiry.message}
                   </div>
 
-                  <div className="text-xs text-chalk-gray/70">{enquiry.date}</div>
+                  <div className="text-xs text-chalk-gray/70">{enquiry.created_at ? new Date(enquiry.created_at).toLocaleString() : ''}</div>
                 </div>
               ))}
             </div>
@@ -222,7 +193,7 @@ export default function EnquiriesPage() {
 
                     <div>
                       <div className="text-xs font-mono text-chalk-gray mb-1">DATE</div>
-                      <div className="text-sm">{selectedEnquiry.date}</div>
+                      <div className="text-sm">{selectedEnquiry.created_at ? new Date(selectedEnquiry.created_at).toLocaleString() : ''}</div>
                     </div>
                   </div>
 

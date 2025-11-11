@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import MathBackground from '@/components/MathBackground';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -17,9 +16,23 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Thank you for reaching out! We will get back to you within 24 hours.');
-    setFormData({ name: '', email: '', company: '', project: '', budget: '', message: '' });
+    (async () => {
+      try {
+        const res = await fetch('/api/enquiries', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        const json = await res.json();
+        if (!res.ok) {
+          throw new Error(json?.error || 'Something went wrong');
+        }
+        setFormData({ name: '', email: '', company: '', project: '', budget: '', message: '' });
+        window.location.href = '/thank-you';
+      } catch (err: any) {
+        alert(`Failed to submit enquiry: ${err?.message || 'Unknown error'}`);
+      }
+    })();
   };
 
   const handleChange = (
@@ -32,8 +45,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
-      <MathBackground />
+    <main className="relative min-h-screen overflow-hidden grid-pattern">
       
       {/* Hero Section */}
       <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32">
@@ -107,10 +119,10 @@ export default function ContactPage() {
                     EMAIL
                   </div>
                   <a
-                    href="mailto:hello@pinaqyntech.com"
+                    href="mailto:hello@pinaqyn.in"
                     className="text-2xl hover:glow-text transition-all duration-300"
                   >
-                    hello@pinaqyntech.com
+                    hello@pinaqyn.in
                   </a>
                 </div>
               </div>

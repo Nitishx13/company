@@ -82,9 +82,11 @@ export default function Hero() {
         {/* Main heading */}
         <h1
           ref={titleRef}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight neon-text"
+          className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight neon-text"
         >
-          {splitText('Your AI-Driven Partner for Smarter, Faster Growth.')}
+          {splitText('Your AI-Driven Partner for Smarter,')}
+          <br />
+          {splitText('Faster Growth.')}
         </h1>
 
         {/* Tagline */}
