@@ -63,7 +63,7 @@ export default function Header() {
                 className="chalk-line"
               />
             </svg>
-            <span className="text-xl font-bold tracking-tight">PINAQYN</span>
+            <span className="text-xl font-bold tracking-tight group-hover:neon-text transition-all">PINAQYN TECH</span>
           </Link>
 
           {/* Desktop Navigation */}

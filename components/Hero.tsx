@@ -82,16 +82,15 @@ export default function Hero() {
         {/* Main heading */}
         <h1
           ref={titleRef}
-          className="text-6xl md:text-8xl font-bold mb-6 tracking-tight"
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight neon-text"
         >
-          {splitText('PINAQYN')}
+          {splitText('Empowering Brands with Technology, Creativity & AI')}
         </h1>
 
         {/* Tagline */}
-        <p className="text-xl md:text-2xl text-chalk-gray mb-8 max-w-3xl mx-auto leading-relaxed">
-          We build technology and businesses that elevate human potential —
-          <br />
-          through design, logic, and deep care.
+        <p className="text-lg md:text-xl text-chalk-gray mb-8 max-w-3xl mx-auto leading-relaxed">
+          We’re Pinaqyn Tech — a modern digital agency blending design, marketing, and automation to help
+          businesses grow smarter, faster, and stronger.
         </p>
 
         {/* Divider line */}
@@ -100,11 +99,11 @@ export default function Hero() {
         {/* CTA */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <a
-            href="#contact"
+            href="/contact"
             className="group relative px-8 py-4 border border-chalk-white hover:bg-chalk-white hover:text-chalk-black transition-all duration-300 overflow-hidden"
           >
             <span className="relative z-10 font-mono text-sm tracking-wider">
-              START A PROJECT
+              GET A FREE STRATEGY CALL
             </span>
             <div className="absolute inset-0 bg-chalk-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
           </a>
@@ -112,7 +111,7 @@ export default function Hero() {
             href="#services"
             className="px-8 py-4 text-chalk-gray hover:text-chalk-white transition-colors duration-300 font-mono text-sm tracking-wider"
           >
-            EXPLORE SERVICES →
+            EXPLORE OUR SERVICES →
           </a>
         </div>
 

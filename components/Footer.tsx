@@ -13,16 +13,16 @@ export default function Footer() {
       { label: 'Contact', href: '/contact' },
     ],
     services: [
-      { label: 'AI Development', href: '/services#ai' },
-      { label: 'UX/UI Design', href: '/services#design' },
-      { label: 'Animations', href: '/services#animation' },
-      { label: 'Architecture', href: '/services#architecture' },
+      { label: 'Branding & Strategy', href: '/services#branding' },
+      { label: 'Web & Development', href: '/services#web' },
+      { label: 'Marketing & SEO', href: '/services#marketing' },
+      { label: 'AI & Automation', href: '/services#automation' },
     ],
     social: [
-      { label: 'Twitter', href: 'https://twitter.com' },
       { label: 'LinkedIn', href: 'https://linkedin.com' },
-      { label: 'GitHub', href: 'https://github.com' },
-      { label: 'Dribbble', href: 'https://dribbble.com' },
+      { label: 'Instagram', href: 'https://instagram.com' },
+      { label: 'X', href: 'https://x.com' },
+      { label: 'YouTube', href: 'https://youtube.com' },
     ],
   };
 
@@ -44,10 +44,10 @@ export default function Footer() {
                 <line x1="40" y1="60" x2="80" y2="60" className="chalk-line" />
                 <circle cx="60" cy="60" r="35" className="chalk-line" />
               </svg>
-              <span className="text-xl font-bold tracking-tight">PINAQYN</span>
+              <span className="text-xl font-bold tracking-tight group-hover:neon-text transition-all">PINAQYN TECH</span>
             </Link>
             <p className="text-chalk-gray text-sm leading-relaxed mb-6">
-              Technology that elevates humanity through design, logic, and deep care.
+              Empowering digital growth through creativity, technology, and AI.
             </p>
             <div className="flex gap-4">
               {footerLinks.social.map((link) => (
@@ -59,7 +59,7 @@ export default function Footer() {
                   className="text-chalk-gray hover:text-chalk-white transition-colors duration-300"
                   aria-label={link.label}
                 >
-                  <span className="text-xs">{link.label.slice(0, 2)}</span>
+                  <span className="text-xs">{link.label}</span>
                 </a>
               ))}
             </div>
@@ -111,14 +111,14 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="mailto:hello@pinaqyn.agency"
+                  href="mailto:hello@pinaqyntech.com"
                   className="text-chalk-gray hover:text-chalk-white transition-colors duration-300 text-sm"
                 >
-                  hello@pinaqyn.agency
+                  hello@pinaqyntech.com
                 </a>
               </li>
               <li className="text-chalk-gray text-sm">
-                Global — Remote First
+                Remote — working globally
               </li>
             </ul>
           </div>
@@ -128,7 +128,7 @@ export default function Footer() {
         <div className="pt-8 border-t border-chalk-gray/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-chalk-gray text-sm">
-              © {currentYear} Pinaqyn. All rights reserved.
+              © {currentYear} Pinaqyn Tech.
             </p>
             <div className="flex gap-6 text-sm">
               <Link

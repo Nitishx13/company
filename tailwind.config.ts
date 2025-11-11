@@ -15,6 +15,13 @@ const config: Config = {
           dark: '#0A0A0A',
           black: '#000000',
         },
+        neon: {
+          cyan: '#00E5FF',
+          blue: '#3B82F6',
+          violet: '#8B5CF6',
+          magenta: '#FF00E5',
+          green: '#00FFA3',
+        },
       },
       fontFamily: {
         sans: ['var(--font-geist-sans)', 'system-ui', 'sans-serif'],

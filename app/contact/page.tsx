@@ -60,10 +60,10 @@ export default function ContactPage() {
                     EMAIL
                   </div>
                   <a
-                    href="mailto:hello@pinaqyn.agency"
+                    href="mailto:hello@pinaqyntech.com"
                     className="text-2xl hover:glow-text transition-all duration-300"
                   >
-                    hello@pinaqyn.agency
+                    hello@pinaqyntech.com
                   </a>
                 </div>
 
@@ -89,10 +89,10 @@ export default function ContactPage() {
                 </div>
                 <div className="flex gap-6">
                   {[
-                    { label: 'Twitter', href: 'https://twitter.com' },
                     { label: 'LinkedIn', href: 'https://linkedin.com' },
-                    { label: 'GitHub', href: 'https://github.com' },
-                    { label: 'Dribbble', href: 'https://dribbble.com' },
+                    { label: 'Instagram', href: 'https://instagram.com' },
+                    { label: 'X', href: 'https://x.com' },
+                    { label: 'YouTube', href: 'https://youtube.com' },
                   ].map((social) => (
                     <a
                       key={social.label}

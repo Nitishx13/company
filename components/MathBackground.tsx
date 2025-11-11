@@ -27,15 +27,23 @@ export default function MathBackground() {
       amplitude: number;
       frequency: number;
       speed: number;
+      color: string;
     }> = [];
 
     // Generate parametric curves
+    const neonPalette = [
+      'rgba(0, 229, 255, 0.15)', // neon cyan
+      'rgba(139, 92, 246, 0.12)', // neon violet
+      'rgba(250, 250, 250, 0.08)', // chalk white
+    ];
+
     for (let i = 0; i < 5; i++) {
       curves.push({
         phase: Math.random() * Math.PI * 2,
         amplitude: 50 + Math.random() * 100,
         frequency: 0.5 + Math.random() * 2,
         speed: 0.0005 + Math.random() * 0.001,
+        color: neonPalette[i % neonPalette.length],
       });
     }
 
@@ -46,9 +54,9 @@ export default function MathBackground() {
 
       time += 0.01;
 
-      curves.forEach((curve, index) => {
+      curves.forEach((curve) => {
         ctx.beginPath();
-        ctx.strokeStyle = `rgba(250, 250, 250, ${0.05 + index * 0.02})`;
+        ctx.strokeStyle = curve.color;
         ctx.lineWidth = 1;
 
         for (let x = 0; x < canvas.width; x += 5) {
@@ -73,7 +81,7 @@ export default function MathBackground() {
       const radius = 100 + Math.sin(time * 0.5) * 20;
 
       ctx.beginPath();
-      ctx.strokeStyle = 'rgba(250, 250, 250, 0.03)';
+      ctx.strokeStyle = 'rgba(0, 229, 255, 0.08)';
       ctx.lineWidth = 1;
       
       // Draw rotating polygon

@@ -11,13 +11,12 @@ export default function AboutPage() {
       <section className="relative z-10 min-h-screen flex items-center justify-center px-6 pt-32">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-6xl md:text-8xl font-bold mb-6 tracking-tight">
-            About Pinaqyn
+            About Pinaqyn Tech
           </h1>
           <div className="w-32 h-px bg-chalk-white mx-auto mb-8" />
           <p className="text-xl md:text-2xl text-chalk-gray leading-relaxed">
-            We are a collective of designers, engineers, and thinkers
-            <br />
-            building technology that serves humanity.
+            We’re a boutique digital agency founded by two passionate creators who
+            believe technology and design should work hand in hand.
           </p>
         </div>
       </section>
@@ -30,13 +29,13 @@ export default function AboutPage() {
               <h2 className="text-5xl md:text-6xl font-bold mb-6">Our Mission</h2>
               <div className="w-24 h-px bg-chalk-white mb-6" />
               <p className="text-xl text-chalk-gray leading-relaxed mb-6">
-                We believe technology should elevate human potential, not diminish it.
-                Every line of code, every pixel, every interaction should serve a
-                meaningful purpose.
+                We help startups and businesses turn ideas into impactful digital experiences —
+                combining brand strategy, data-driven marketing, and cutting-edge automation
+                to scale with precision.
               </p>
               <p className="text-xl text-chalk-gray leading-relaxed">
-                We combine mathematical precision with artistic sensibility to create
-                experiences that feel inevitable, clear, and deeply human.
+                Our approach blends strategic thinking, technical expertise, and AI-driven innovation
+                to help brands evolve and thrive in the digital era.
               </p>
             </div>
             <div className="flex justify-center">
@@ -55,21 +54,25 @@ export default function AboutPage() {
       {/* Values Section */}
       <section className="relative z-10 py-32 px-6 grid-pattern">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center">Our Values</h2>
+          <h2 className="text-5xl md:text-6xl font-bold mb-16 text-center">Our Core Values</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Clarity',
-                description: 'We cut through complexity to find elegant solutions. Every decision is intentional, every element has purpose.',
+                title: 'Innovation',
+                description: 'We embrace change and push creative boundaries to find better ways to solve real problems.',
               },
               {
-                title: 'Craft',
-                description: 'We obsess over details. From typography to timing, we believe excellence lives in the smallest decisions.',
+                title: 'Integrity',
+                description: 'We build relationships based on trust and transparency — always doing the right thing for our clients and users.',
               },
               {
-                title: 'Care',
-                description: 'We build for people, not metrics. Technology should improve lives, solve real problems, and respect humanity.',
+                title: 'Impact',
+                description: 'We focus on measurable results that matter — creative work backed by data and performance.',
+              },
+              {
+                title: 'Simplicity',
+                description: 'We streamline the complex with automation and design clarity — less noise, more signal.',
               },
             ].map((value, index) => (
               <div
@@ -92,25 +95,21 @@ export default function AboutPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <div>
-              <h3 className="text-2xl font-bold mb-4">A Global Collective</h3>
+              <h3 className="text-2xl font-bold mb-4">A Boutique Team</h3>
               <p className="text-chalk-gray leading-relaxed mb-6">
-                We're a remote-first team of specialists from around the world.
-                Designers who code. Engineers who design. Thinkers who build.
+                Founded by two creators who blend strategy, design, and engineering — we operate remotely and collaborate globally.
               </p>
               <p className="text-chalk-gray leading-relaxed">
-                We believe the best work happens when diverse perspectives come
-                together around shared principles and a common mission.
+                We bring in the right specialists for each project and keep teams lean, focused, and effective.
               </p>
             </div>
             <div>
               <h3 className="text-2xl font-bold mb-4">Our Approach</h3>
               <p className="text-chalk-gray leading-relaxed mb-6">
-                We don't follow trends. We study fundamentals — mathematics, physics,
-                psychology, design theory — and apply them to create timeless solutions.
+                Strategy first. Then design and engineering. We prioritize systems that scale — with clarity and measurable outcomes.
               </p>
               <p className="text-chalk-gray leading-relaxed">
-                Every project starts with deep listening. We seek to understand not
-                just what you want to build, but why it matters.
+                Every project starts with deep listening. We seek to understand the goals, constraints, and opportunities — then build with precision.
               </p>
             </div>
           </div>

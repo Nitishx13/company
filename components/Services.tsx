@@ -5,59 +5,51 @@ import { useEffect, useRef, useState } from 'react';
 const services = [
   {
     id: '01',
-    title: 'Ethical AI Development',
-    description: 'Building AI systems that serve humanity with transparency, fairness, and purpose.',
+    title: 'Branding & Strategy',
+    description: 'Build a powerful brand that connects and converts with clarity, consistency, and purpose.',
     icon: (
       <svg width="60" height="60" viewBox="0 0 60 60">
-        <circle cx="30" cy="30" r="20" className="chalk-line" />
-        <circle cx="30" cy="30" r="10" className="chalk-line" />
-        <line x1="30" y1="10" x2="30" y2="50" className="chalk-line" />
-        <line x1="10" y1="30" x2="50" y2="30" className="chalk-line" />
+        <rect x="12" y="12" width="36" height="36" className="chalk-line" />
+        <line x1="12" y1="30" x2="48" y2="30" className="chalk-line" />
+        <circle cx="22" cy="22" r="2" fill="#FAFAFA" />
+        <circle cx="28" cy="22" r="2" fill="#FAFAFA" />
       </svg>
     ),
   },
   {
     id: '02',
-    title: 'Advanced UX/UI Design',
-    description: 'Logic-first design frameworks that create intuitive, inevitable user experiences.',
+    title: 'Web & Digital Development',
+    description: 'Fast, scalable, beautiful websites and web apps engineered for performance and impact.',
     icon: (
       <svg width="60" height="60" viewBox="0 0 60 60">
-        <rect x="10" y="10" width="40" height="40" className="chalk-line" />
+        <rect x="10" y="15" width="40" height="30" className="chalk-line" />
         <line x1="10" y1="25" x2="50" y2="25" className="chalk-line" />
-        <circle cx="20" cy="17.5" r="2" fill="#FAFAFA" />
-        <circle cx="27" cy="17.5" r="2" fill="#FAFAFA" />
+        <line x1="20" y1="40" x2="40" y2="40" className="chalk-line" />
       </svg>
     ),
   },
   {
     id: '03',
-    title: 'Mathematical Animations',
-    description: 'Parametric curves, fractals, and geometry-driven motion that feels intelligent.',
+    title: 'Digital Marketing & SEO',
+    description: 'Performance-focused campaigns across Google, Meta, and more — with measurable ROI.',
     icon: (
       <svg width="60" height="60" viewBox="0 0 60 60">
-        <path
-          d="M 10 30 Q 20 10, 30 30 T 50 30"
-          className="chalk-line"
-          fill="none"
-        />
-        <circle cx="10" cy="30" r="2" fill="#FAFAFA" />
-        <circle cx="30" cy="30" r="2" fill="#FAFAFA" />
-        <circle cx="50" cy="30" r="2" fill="#FAFAFA" />
+        <path d="M12 40 L26 28 L34 34 L48 20" className="chalk-line" />
+        <circle cx="26" cy="28" r="2" fill="#FAFAFA" />
+        <circle cx="34" cy="34" r="2" fill="#FAFAFA" />
+        <circle cx="48" cy="20" r="2" fill="#FAFAFA" />
       </svg>
     ),
   },
   {
     id: '04',
-    title: 'Systems Architecture',
-    description: 'Holistic business and technical architecture that scales with purpose.',
+    title: 'AI & Automation',
+    description: 'Smart systems that save time, cut costs, and drive growth with precision.',
     icon: (
       <svg width="60" height="60" viewBox="0 0 60 60">
-        <rect x="15" y="15" width="15" height="15" className="chalk-line" />
-        <rect x="35" y="15" width="15" height="15" className="chalk-line" />
-        <rect x="15" y="35" width="15" height="15" className="chalk-line" />
-        <rect x="35" y="35" width="15" height="15" className="chalk-line" />
-        <line x1="30" y1="22.5" x2="35" y2="22.5" className="chalk-line" />
-        <line x1="22.5" y1="30" x2="22.5" y2="35" className="chalk-line" />
+        <circle cx="30" cy="30" r="18" className="chalk-line" />
+        <line x1="30" y1="12" x2="30" y2="48" className="chalk-line" />
+        <line x1="12" y1="30" x2="48" y2="30" className="chalk-line" />
       </svg>
     ),
   },
@@ -95,13 +87,11 @@ export default function Services() {
         {/* Section header */}
         <div className="mb-20">
           <h2 className="text-5xl md:text-7xl font-bold mb-6">
-            What We Build
+            What We Do
           </h2>
           <div className="w-24 h-px bg-chalk-white mb-6" />
           <p className="text-xl text-chalk-gray max-w-2xl">
-            Technology with purpose. Design with intention.
-            <br />
-            Every solution serves a meaningful human need.
+            Creative. Data-Driven. Automated.
           </p>
         </div>
 
