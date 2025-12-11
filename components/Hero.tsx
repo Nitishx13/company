@@ -1,145 +1,68 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
-
 export default function Hero() {
-  const titleRef = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    const title = titleRef.current;
-    if (!title) return;
-
-    // Animate letters on load
-    const letters = title.querySelectorAll('.letter');
-    letters.forEach((letter, index) => {
-      setTimeout(() => {
-        letter.classList.add('opacity-100', 'translate-y-0');
-      }, index * 50);
-    });
-  }, []);
-
-  const splitText = (text: string) => {
-    return text.split('').map((char, index) => (
-      <span
-        key={index}
-        className="letter inline-block opacity-0 translate-y-4 transition-all duration-500"
-      >
-        {char === ' ' ? '\u00A0' : char}
-      </span>
-    ));
-  };
-
   return (
-    <section className="relative z-10 min-h-screen flex items-center justify-center px-6">
-      <div className="max-w-6xl mx-auto text-center">
-        {/* Logo/Symbol */}
-        <div className="mb-12 flex justify-center">
-          <svg
-            width="120"
-            height="120"
-            viewBox="0 0 120 120"
-            className="animate-float"
-          >
-            {/* Monolith symbol - a geometric representation */}
-            <rect
-              x="40"
-              y="20"
-              width="40"
-              height="80"
-              className="chalk-line"
-              strokeDasharray="240"
-              strokeDashoffset="240"
-              style={{
-                animation: 'draw 2s ease-out forwards',
-              }}
-            />
-            <line
-              x1="40"
-              y1="60"
-              x2="80"
-              y2="60"
-              className="chalk-line"
-              strokeDasharray="40"
-              strokeDashoffset="40"
-              style={{
-                animation: 'draw 2s ease-out 0.5s forwards',
-              }}
-            />
-            <circle
-              cx="60"
-              cy="60"
-              r="35"
-              className="chalk-line"
-              strokeDasharray="220"
-              strokeDashoffset="220"
-              style={{
-                animation: 'draw 2s ease-out 1s forwards',
-              }}
-            />
-          </svg>
+    <section className="relative z-10 min-h-screen flex items-center justify-center px-6 py-20">
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-[#11141a] via-[#0b0d13] to-[#010203]"
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage:
+            'radial-gradient(circle at 20% 20%, rgba(80,115,255,0.2), transparent 50%), radial-gradient(circle at 80% 10%, rgba(255,0,128,0.25), transparent 45%)',
+          filter: 'blur(0.5px)',
+        }}
+        aria-hidden="true"
+      />
+      <div className="relative max-w-6xl w-full space-y-10 text-center">
+        <div className="space-y-6 px-6">
+          <p className="text-sm font-mono uppercase tracking-[0.8em] text-white/60">
+            A digital marketing agency
+          </p>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white">
+            A digital marketing agency for{' '}
+            <span className="bg-gradient-to-r from-sky-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+              businesses
+            </span>{' '}
+            looking for{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
+              serious growth
+            </span>
+          </h1>
+          <p className="mx-auto max-w-3xl text-base md:text-lg text-white/80 leading-relaxed">
+            Request a free review of your website and digital marketing. We’ll show you how to hit
+            your business’s revenue goals and dominate your competitors with a results-driven agency.
+          </p>
         </div>
 
-        {/* Main heading */}
-        <h1
-          ref={titleRef}
-          className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight neon-text"
-        >
-          {splitText('Your AI-Driven Partner for Smarter,')}
-          <br />
-          {splitText('Faster Growth.')}
-        </h1>
-
-        {/* Tagline */}
-        <p className="text-lg md:text-xl text-chalk-gray mb-8 max-w-3xl mx-auto leading-relaxed">
-          We’re Pinaqyn Tech — a modern digital agency blending design, marketing, and automation to help
-          businesses grow smarter, faster, and stronger.
-        </p>
-
-        {/* Divider line */}
-        <div className="w-32 h-px bg-chalk-white mx-auto mb-8" />
-
-        {/* CTA */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col gap-5 sm:flex-row sm:justify-center sm:items-center">
           <a
             href="/contact"
-            className="group relative px-8 py-4 border border-chalk-white hover:bg-chalk-white hover:text-chalk-black transition-all duration-300 overflow-hidden"
+            className="relative inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff5f91] to-[#7b5bff] px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white shadow-[0_15px_30px_rgba(255,95,145,0.4)] transition hover:shadow-[0_25px_40px_rgba(123,91,255,0.35)]"
           >
-            <span className="relative z-10 font-mono text-sm tracking-wider">
-              GET A FREE STRATEGY CALL
-            </span>
-            <div className="absolute inset-0 bg-chalk-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300" />
+            Send me a Proposal
           </a>
           <a
             href="#services"
-            className="px-8 py-4 text-chalk-gray hover:text-chalk-white transition-colors duration-300 font-mono text-sm tracking-wider"
+            className="inline-flex items-center justify-center rounded-full border border-white/40 px-8 py-4 text-sm font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
           >
-            EXPLORE OUR SERVICES →
+            Book a Discovery Call
           </a>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2">
-          <div className="flex flex-col items-center gap-2 animate-bounce">
-            <span className="text-xs text-chalk-gray font-mono tracking-wider">
-              SCROLL
-            </span>
-            <svg width="20" height="30" viewBox="0 0 20 30">
-              <line
-                x1="10"
-                y1="0"
-                x2="10"
-                y2="20"
-                className="chalk-line"
-                strokeWidth="1"
-              />
-              <polyline
-                points="5,15 10,20 15,15"
-                className="chalk-line"
-                strokeWidth="1"
-              />
-            </svg>
+        <div className="mx-auto max-w-3xl border border-white/10 rounded-3xl bg-white/5 px-10 py-12 backdrop-blur space-y-6">
+          <p className="text-xs uppercase tracking-[0.5em] text-white/50 mb-3">Partner Integrations</p>
+          <div className="flex flex-wrap justify-center gap-6 text-xs font-semibold uppercase tracking-[0.4em] text-white/60">
+            <span>WooCommerce</span>
+            <span>Klavyio</span>
+            <span>Mailchimp</span>
+            <span>Adobe Commerce</span>
+            <span>HubSpot</span>
           </div>
         </div>
+
       </div>
     </section>
   );

@@ -13,10 +13,10 @@ export default function Footer() {
       { label: 'Contact', href: '/contact' },
     ],
     services: [
-      { label: 'Branding & Strategy', href: '/services#branding' },
-      { label: 'Web & Development', href: '/services#web' },
-      { label: 'Marketing & SEO', href: '/services#marketing' },
-      { label: 'AI & Automation', href: '/services#automation' },
+      { label: 'Branding & Strategy', href: '/services/branding' },
+      { label: 'Web & Development', href: '/services/web-development' },
+      { label: 'Marketing & SEO', href: '/services/marketing' },
+      { label: 'AI & Automation', href: '/services/ai-automation' },
     ],
     social: [
       { label: 'LinkedIn', href: 'https://linkedin.com' },

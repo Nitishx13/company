@@ -1,4 +1,4 @@
-// File: C:\Users\riddh\OneDrive\Documents\GitHub\company\app\contact\layout.tsx
+// File: C:\Users\Admin\OneDrive\Documents\GitHub\company\app\contact\layout.tsx
 import * as entry from '../../../../app/contact/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
