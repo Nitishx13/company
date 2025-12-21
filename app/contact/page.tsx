@@ -13,11 +13,11 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <a
-              href="mailto:hello@pinaqyn.in"
+              href="mailto:pinaqyn@gmail.com"
               className="rounded-[32px] border border-chalk-gray/30 bg-black/40 p-10 backdrop-blur transition-colors hover:border-chalk-white"
             >
               <div className="font-mono text-xs tracking-wider text-chalk-gray mb-3">EMAIL</div>
-              <div className="text-2xl font-semibold">hello@pinaqyn.in</div>
+              <div className="text-2xl font-semibold">pinaqyn@gmail.com</div>
               <div className="mt-4 text-chalk-gray text-sm">Tap to email us</div>
             </a>
 
