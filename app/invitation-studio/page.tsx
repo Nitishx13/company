@@ -11,6 +11,8 @@ type LayerBase = {
   scale: number;
   rotation: number;
   opacity: number;
+  startSec: number;
+  endSec: number;
 };
 
 type TextLayer = LayerBase & {
@@ -73,6 +75,10 @@ export default function InvitationStudioPage() {
   const [durationSec, setDurationSec] = useState(4);
   const [fps, setFps] = useState(30);
 
+  const [playheadSec, setPlayheadSec] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const playRef = useRef<{ raf: number | null; startedAt: number; basePlayhead: number } | null>(null);
+
   const [musicUrl, setMusicUrl] = useState<string | null>(null);
   const [musicVolume, setMusicVolume] = useState(70);
 
@@ -92,6 +98,8 @@ export default function InvitationStudioPage() {
         scale: 1,
         rotation: 0,
         opacity: 1,
+        startSec: 0,
+        endSec: 4,
         text: 'Your Invitation',
         color: '#ffffff',
         fontSize: 76,
@@ -113,6 +121,49 @@ export default function InvitationStudioPage() {
     setLayers((prev) => prev.map((l) => (l.id === id ? ({ ...l, ...patch } as Layer) : l)));
   };
 
+  const isLayerActive = (layer: Layer, tSec: number) => {
+    const a = clamp(layer.startSec, 0, durationSec);
+    const b = clamp(layer.endSec, 0, durationSec);
+    const start = Math.min(a, b);
+    const end = Math.max(a, b);
+    return tSec >= start && tSec <= end;
+  };
+
+  useEffect(() => {
+    setPlayheadSec((t) => clamp(t, 0, durationSec));
+  }, [durationSec]);
+
+  useEffect(() => {
+    if (!isPlaying) {
+      if (playRef.current?.raf) cancelAnimationFrame(playRef.current.raf);
+      playRef.current = null;
+      return;
+    }
+
+    const startedAt = performance.now();
+    const basePlayhead = playheadSec;
+    playRef.current = { raf: null, startedAt, basePlayhead };
+
+    const tick = () => {
+      if (!playRef.current) return;
+      const elapsed = (performance.now() - playRef.current.startedAt) / 1000;
+      const next = playRef.current.basePlayhead + elapsed;
+      if (next >= durationSec) {
+        setPlayheadSec(durationSec);
+        setIsPlaying(false);
+        return;
+      }
+      setPlayheadSec(next);
+      playRef.current.raf = requestAnimationFrame(tick);
+    };
+
+    playRef.current.raf = requestAnimationFrame(tick);
+    return () => {
+      if (playRef.current?.raf) cancelAnimationFrame(playRef.current.raf);
+      playRef.current = null;
+    };
+  }, [isPlaying, durationSec, playheadSec]);
+
   const deleteSelected = () => {
     if (!selectedId) return;
     setLayers((prev) => prev.filter((l) => l.id !== selectedId));
@@ -130,6 +181,8 @@ export default function InvitationStudioPage() {
       scale: 1,
       rotation: 0,
       opacity: 1,
+      startSec: 0,
+      endSec: durationSec,
       text: 'Tap to edit',
       color: '#ffffff',
       fontSize: 56,
@@ -155,6 +208,8 @@ export default function InvitationStudioPage() {
       scale: 1,
       rotation: 0,
       opacity: 1,
+      startSec: 0,
+      endSec: durationSec,
       src,
       width: baseW,
       height: Math.round(baseW * ratio),
@@ -235,13 +290,15 @@ export default function InvitationStudioPage() {
 
   const renderFrameToCanvas = async (
     ctx: CanvasRenderingContext2D,
-    decodedImages: Record<string, HTMLImageElement>
+    decodedImages: Record<string, HTMLImageElement>,
+    tSec: number
   ) => {
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = bgColor;
     ctx.fillRect(0, 0, W, H);
 
     for (const layer of layers) {
+      if (!isLayerActive(layer, tSec)) continue;
       if (layer.opacity <= 0) continue;
       ctx.save();
       ctx.globalAlpha = clamp(layer.opacity, 0, 1);
@@ -361,11 +418,11 @@ export default function InvitationStudioPage() {
         }
         nextTick += frameMs;
 
-        await renderFrameToCanvas(ctx, decodedImages);
+        await renderFrameToCanvas(ctx, decodedImages, t / 1000);
         setProgress(Math.min(1, t / totalMs));
       }
 
-      await renderFrameToCanvas(ctx, decodedImages);
+      await renderFrameToCanvas(ctx, decodedImages, safeSeconds);
       await new Promise((r) => setTimeout(r, 150));
 
       recorder.stop();
@@ -400,6 +457,7 @@ export default function InvitationStudioPage() {
 
   const stageLayers = useMemo(() => {
     return layers.map((layer) => {
+      if (isPlaying && !isLayerActive(layer, playheadSec)) return null;
       const isSelected = layer.id === selectedId;
       const commonStyle: React.CSSProperties = {
         position: 'absolute',
@@ -476,7 +534,7 @@ export default function InvitationStudioPage() {
         </div>
       );
     });
-  }, [layers, selectedId]);
+  }, [layers, selectedId, isPlaying, playheadSec, durationSec]);
 
   return (
     <main className="relative min-h-screen overflow-hidden grid-pattern">
@@ -536,7 +594,17 @@ export default function InvitationStudioPage() {
                       min={1}
                       max={15}
                       value={durationSec}
-                      onChange={(e) => setDurationSec(Number(e.target.value))}
+                      onChange={(e) => {
+                        const v = Number(e.target.value);
+                        setDurationSec(v);
+                        setLayers((prev) =>
+                          prev.map((l) => ({
+                            ...l,
+                            startSec: clamp(l.startSec, 0, v),
+                            endSec: clamp(l.endSec, 0, v),
+                          }))
+                        );
+                      }}
                       className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                     />
                   </div>
@@ -555,6 +623,37 @@ export default function InvitationStudioPage() {
                 <div>
                   <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND</label>
                   <input type="color" value={bgColor} onChange={(e) => setBgColor(e.target.value)} className="w-full" />
+                </div>
+
+                <div className="rounded-2xl border border-white/10 bg-black/20 p-4 space-y-3">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Timeline</div>
+                    <button
+                      type="button"
+                      onClick={() => setIsPlaying((p) => !p)}
+                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white"
+                    >
+                      {isPlaying ? 'Pause' : 'Play'}
+                    </button>
+                  </div>
+
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">
+                      PLAYHEAD ({playheadSec.toFixed(2)}s)
+                    </label>
+                    <input
+                      type="range"
+                      min={0}
+                      max={Math.max(0.01, durationSec)}
+                      step={0.01}
+                      value={playheadSec}
+                      onChange={(e) => {
+                        setIsPlaying(false);
+                        setPlayheadSec(Number(e.target.value));
+                      }}
+                      className="w-full"
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -669,6 +768,33 @@ export default function InvitationStudioPage() {
                           value={Math.round(selected.rotation)}
                           onChange={(e) => setLayer(selected.id, { rotation: Number(e.target.value) })}
                           className="w-full"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">START (SEC)</label>
+                        <input
+                          type="number"
+                          min={0}
+                          max={durationSec}
+                          step={0.1}
+                          value={selected.startSec}
+                          onChange={(e) => setLayer(selected.id, { startSec: clamp(Number(e.target.value), 0, durationSec) })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">END (SEC)</label>
+                        <input
+                          type="number"
+                          min={0}
+                          max={durationSec}
+                          step={0.1}
+                          value={selected.endSec}
+                          onChange={(e) => setLayer(selected.id, { endSec: clamp(Number(e.target.value), 0, durationSec) })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                         />
                       </div>
                     </div>
