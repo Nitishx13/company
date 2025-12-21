@@ -213,6 +213,20 @@ export default function WeddingInvitationPage() {
   const templates = useMemo<TemplateId[]>(() => ['intro', 'day1', 'day2', 'venue'], []);
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
+  type MobileSectionId =
+    | 'template'
+    | 'names'
+    | 'templateFields'
+    | 'rsvp'
+    | 'colors'
+    | 'background'
+    | 'decorations'
+    | 'music'
+    | 'export';
+
+  const [mobileOpenSection, setMobileOpenSection] = useState<MobileSectionId>('template');
+  const [mobileShowAll, setMobileShowAll] = useState(false);
+
   const [dataByTemplate, setDataByTemplate] = useState<Record<TemplateId, InviteFields>>(() => ({
     intro: defaultFields('intro'),
     day1: defaultFields('day1'),
@@ -234,6 +248,10 @@ export default function WeddingInvitationPage() {
 
   const activeTemplate = templates[step - 1];
   const activeData = dataByTemplate[activeTemplate];
+
+  useEffect(() => {
+    setMobileOpenSection('templateFields');
+  }, [activeTemplate]);
 
   const safeFileName = (value: string) =>
     value
@@ -841,12 +859,12 @@ export default function WeddingInvitationPage() {
 
   return (
     <main className="relative min-h-screen overflow-hidden grid-pattern">
-      <section className="relative z-10 min-h-screen px-6 pt-32 pb-20">
+      <section className="relative z-10 min-h-screen px-4 sm:px-6 pt-24 sm:pt-32 pb-16 sm:pb-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h1 className="text-4xl md:text-6xl font-bold">Wedding Invitation</h1>
+            <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold">Wedding Invitation</h1>
             <div className="w-24 h-px bg-chalk-white mx-auto mt-6 mb-6" />
-            <p className="text-lg text-chalk-gray">Choose a template, fill details, and export a 9:16 invitation video.</p>
+            <p className="text-base sm:text-lg text-chalk-gray">Choose a template, fill details, and export a 9:16 invitation video.</p>
             <div className="mt-4 text-sm text-chalk-gray">
               <Link href="/alpha" className="underline underline-offset-4 hover:text-chalk-white">
                 Back to Alpha
@@ -854,12 +872,33 @@ export default function WeddingInvitationPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="rounded-[28px] border border-white/10 bg-black/50 backdrop-blur p-8 space-y-5">
-              <div className="flex items-center justify-between gap-4">
-                <div>
-                  <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Template</div>
-                  <div className="mt-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+            <div className="rounded-[28px] border border-white/10 bg-black/50 backdrop-blur p-4 sm:p-8 space-y-5">
+              <div className="lg:hidden flex items-center justify-between gap-3">
+                <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Editor</div>
+                <button
+                  type="button"
+                  onClick={() => setMobileShowAll((v) => !v)}
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90"
+                >
+                  {mobileShowAll ? 'Collapse' : 'Show All'}
+                </button>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('template')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Template</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'template' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'template' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0`}>
+                  <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray hidden lg:block">Template</div>
+                  <div className="mt-0 lg:mt-3">
                     <select
                       value={step}
                       onChange={(e) => setStep(Number(e.target.value) as 1 | 2 | 3 | 4)}
@@ -875,413 +914,521 @@ export default function WeddingInvitationPage() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">GROOM NAME</label>
-                  <input
-                    value={activeData.brideName}
-                    onChange={(e) => setField({ brideName: e.target.value })}
-                    className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                  />
-                </div>
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BRIDE NAME</label>
-                  <input
-                    value={activeData.groomName}
-                    onChange={(e) => setField({ groomName: e.target.value })}
-                    className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                  />
-                </div>
-              </div>
-
-              {activeTemplate === 'intro' ? (
-                <>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">HOST LINE</label>
-                    <input
-                      value={activeData.hostLine}
-                      onChange={(e) => setField({ hostLine: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('names')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Names</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'names' ? 'Hide' : 'Show'}</div>
                   </div>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">INVITE LINE 1</label>
-                    <input
-                      value={activeData.inviteLine1}
-                      onChange={(e) => setField({ inviteLine1: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">INVITE LINE 2</label>
-                    <input
-                      value={activeData.inviteLine2}
-                      onChange={(e) => setField({ inviteLine2: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
-                </>
-              ) : null}
-
-              {activeTemplate === 'day1' || activeTemplate === 'day2' ? (
-                <>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">DATE</label>
-                    <input
-                      value={activeData.date}
-                      onChange={(e) => setField({ date: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">SCHEDULE (one per line, format: time | title | optional subtitle)</label>
-                    <textarea
-                      rows={5}
-                      value={activeData.scheduleLines}
-                      onChange={(e) => setField({ scheduleLines: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
-                </>
-              ) : null}
-
-              {activeTemplate === 'venue' ? (
-                <>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">VENUE TITLE</label>
-                    <input
-                      value={activeData.venueTitle}
-                      onChange={(e) => setField({ venueTitle: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">ADDRESS (multi-line)</label>
-                    <textarea
-                      rows={4}
-                      value={activeData.venueAddress}
-                      onChange={(e) => setField({ venueAddress: e.target.value })}
-                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                    />
-                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'names' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0`}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BUTTON 1</label>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">GROOM NAME</label>
                       <input
-                        value={activeData.cta1}
-                        onChange={(e) => setField({ cta1: e.target.value })}
+                        value={activeData.brideName}
+                        onChange={(e) => setField({ brideName: e.target.value })}
                         className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                       />
                     </div>
                     <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BUTTON 2</label>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BRIDE NAME</label>
                       <input
-                        value={activeData.cta2}
-                        onChange={(e) => setField({ cta2: e.target.value })}
+                        value={activeData.groomName}
+                        onChange={(e) => setField({ groomName: e.target.value })}
                         className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                       />
                     </div>
                   </div>
-                </>
-              ) : null}
-
-              <div>
-                <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">RSVP PHONE (OPTIONAL)</label>
-                <input
-                  value={activeData.rsvpPhone}
-                  onChange={(e) => setField({ rsvpPhone: e.target.value })}
-                  className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                />
+                </div>
               </div>
 
               <div>
-                <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TEXT COLOR</label>
-                <input
-                  type="color"
-                  value={activeData.textColor}
-                  onChange={(e) => setField({ textColor: e.target.value })}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">LABEL COLOR</label>
-                <input
-                  type="color"
-                  value={activeData.labelColor}
-                  onChange={(e) => setField({ labelColor: e.target.value })}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND MODE</label>
-                <select
-                  value={activeData.bgMode}
-                  onChange={(e) => setField({ bgMode: e.target.value as 'gradient' | 'color' | 'image' })}
-                  className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('templateFields')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
                 >
-                  <option value="gradient">Gradient</option>
-                  <option value="color">Color</option>
-                  <option value="image">Image</option>
-                </select>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Template Fields</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'templateFields' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'templateFields' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0 space-y-5`}>
+                  {activeTemplate === 'intro' ? (
+                    <>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">HOST LINE</label>
+                        <input
+                          value={activeData.hostLine}
+                          onChange={(e) => setField({ hostLine: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">INVITE LINE 1</label>
+                        <input
+                          value={activeData.inviteLine1}
+                          onChange={(e) => setField({ inviteLine1: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">INVITE LINE 2</label>
+                        <input
+                          value={activeData.inviteLine2}
+                          onChange={(e) => setField({ inviteLine2: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                    </>
+                  ) : null}
+
+                  {activeTemplate === 'day1' || activeTemplate === 'day2' ? (
+                    <>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">DATE</label>
+                        <input
+                          value={activeData.date}
+                          onChange={(e) => setField({ date: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">SCHEDULE (one per line, format: time | title | optional subtitle)</label>
+                        <textarea
+                          rows={5}
+                          value={activeData.scheduleLines}
+                          onChange={(e) => setField({ scheduleLines: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                    </>
+                  ) : null}
+
+                  {activeTemplate === 'venue' ? (
+                    <>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">VENUE TITLE</label>
+                        <input
+                          value={activeData.venueTitle}
+                          onChange={(e) => setField({ venueTitle: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">ADDRESS (multi-line)</label>
+                        <textarea
+                          rows={4}
+                          value={activeData.venueAddress}
+                          onChange={(e) => setField({ venueAddress: e.target.value })}
+                          className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                        />
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BUTTON 1</label>
+                          <input
+                            value={activeData.cta1}
+                            onChange={(e) => setField({ cta1: e.target.value })}
+                            className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                          />
+                        </div>
+                        <div>
+                          <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BUTTON 2</label>
+                          <input
+                            value={activeData.cta2}
+                            onChange={(e) => setField({ cta2: e.target.value })}
+                            className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
               </div>
 
-              {activeData.bgMode === 'color' ? (
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND COLOR</label>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('rsvp')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">RSVP</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'rsvp' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'rsvp' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0`}>
+                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">RSVP PHONE (OPTIONAL)</label>
                   <input
-                    type="color"
-                    value={activeData.bgColor}
-                    onChange={(e) => setField({ bgColor: e.target.value })}
-                    className="w-full"
+                    value={activeData.rsvpPhone}
+                    onChange={(e) => setField({ rsvpPhone: e.target.value })}
+                    className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
                   />
                 </div>
-              ) : null}
+              </div>
 
-              {activeData.bgMode === 'image' ? (
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND IMAGE</label>
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('colors')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Colors</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'colors' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'colors' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0 space-y-5`}>
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TEXT COLOR</label>
+                    <input
+                      type="color"
+                      value={activeData.textColor}
+                      onChange={(e) => setField({ textColor: e.target.value })}
+                      className="w-full"
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">LABEL COLOR</label>
+                    <input
+                      type="color"
+                      value={activeData.labelColor}
+                      onChange={(e) => setField({ labelColor: e.target.value })}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('background')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Background</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'background' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'background' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0 space-y-5`}>
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND MODE</label>
+                    <select
+                      value={activeData.bgMode}
+                      onChange={(e) => setField({ bgMode: e.target.value as 'gradient' | 'color' | 'image' })}
+                      className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                    >
+                      <option value="gradient">Gradient</option>
+                      <option value="color">Color</option>
+                      <option value="image">Image</option>
+                    </select>
+                  </div>
+
+                  {activeData.bgMode === 'color' ? (
+                    <div>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND COLOR</label>
+                      <input
+                        type="color"
+                        value={activeData.bgColor}
+                        onChange={(e) => setField({ bgColor: e.target.value })}
+                        className="w-full"
+                      />
+                    </div>
+                  ) : null}
+
+                  {activeData.bgMode === 'image' ? (
+                    <div>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND IMAGE</label>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => onPickBgImage(e.target.files?.[0] ?? null)}
+                        className="w-full text-sm"
+                      />
+                      <div className="mt-3">
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND OPACITY ({activeData.bgOpacityPercent}%)</label>
+                        <input
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={activeData.bgOpacityPercent}
+                          onChange={(e) => setField({ bgOpacityPercent: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div className="mt-3 flex gap-3">
+                        <button
+                          type="button"
+                          onClick={removeBgImage}
+                          disabled={!activeData.bgImage || isRendering}
+                          className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
+                        >
+                          Remove BG
+                        </button>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('decorations')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Decorations</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'decorations' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+
+                <div
+                  className={`${mobileShowAll || mobileOpenSection === 'decorations' ? 'block' : 'hidden'} lg:block rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4 mt-3 lg:mt-0`}
+                >
+                  <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Decorations (Upload Leaves)</div>
+
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP DECORATION IMAGE</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => onPickDecoTop(e.target.files?.[0] ?? null)}
+                      className="w-full text-sm"
+                    />
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP OPACITY ({activeData.decoTopOpacityPercent}%)</label>
+                        <input
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={activeData.decoTopOpacityPercent}
+                          onChange={(e) => setField({ decoTopOpacityPercent: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP SCALE ({activeData.decoTopScalePercent}%)</label>
+                        <input
+                          type="range"
+                          min={10}
+                          max={250}
+                          value={activeData.decoTopScalePercent}
+                          onChange={(e) => setField({ decoTopScalePercent: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP X ({activeData.decoTopX}px)</label>
+                        <input
+                          type="range"
+                          min={-400}
+                          max={400}
+                          value={activeData.decoTopX}
+                          onChange={(e) => setField({ decoTopX: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP Y ({activeData.decoTopY}px)</label>
+                        <input
+                          type="range"
+                          min={-400}
+                          max={400}
+                          value={activeData.decoTopY}
+                          onChange={(e) => setField({ decoTopY: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setField({ decoTopImage: null })}
+                        disabled={!activeData.decoTopImage || isRendering}
+                        className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
+                      >
+                        Remove Top
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM DECORATION IMAGE</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => onPickDecoBottom(e.target.files?.[0] ?? null)}
+                      className="w-full text-sm"
+                    />
+                    <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM OPACITY ({activeData.decoBottomOpacityPercent}%)</label>
+                        <input
+                          type="range"
+                          min={0}
+                          max={100}
+                          value={activeData.decoBottomOpacityPercent}
+                          onChange={(e) => setField({ decoBottomOpacityPercent: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM SCALE ({activeData.decoBottomScalePercent}%)</label>
+                        <input
+                          type="range"
+                          min={10}
+                          max={250}
+                          value={activeData.decoBottomScalePercent}
+                          onChange={(e) => setField({ decoBottomScalePercent: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM X ({activeData.decoBottomX}px)</label>
+                        <input
+                          type="range"
+                          min={-400}
+                          max={400}
+                          value={activeData.decoBottomX}
+                          onChange={(e) => setField({ decoBottomX: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM Y ({activeData.decoBottomY}px)</label>
+                        <input
+                          type="range"
+                          min={-1500}
+                          max={1500}
+                          value={activeData.decoBottomY}
+                          onChange={(e) => setField({ decoBottomY: Number(e.target.value) })}
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex gap-3">
+                      <button
+                        type="button"
+                        onClick={() => setField({ decoBottomImage: null })}
+                        disabled={!activeData.decoBottomImage || isRendering}
+                        className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
+                      >
+                        Remove Bottom
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  onClick={() => setMobileOpenSection('music')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
+                >
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Music</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'music' ? 'Hide' : 'Show'}</div>
+                  </div>
+                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'music' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0`}>
+                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">MUSIC (OPTIONAL)</label>
                   <input
+                    ref={musicInputRef}
                     type="file"
-                    accept="image/*"
-                    onChange={(e) => onPickBgImage(e.target.files?.[0] ?? null)}
+                    accept="audio/*"
+                    onChange={(e) => onPickMusic(e.target.files?.[0] ?? null)}
                     className="w-full text-sm"
                   />
                   <div className="mt-3">
-                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BACKGROUND OPACITY ({activeData.bgOpacityPercent}%)</label>
+                    <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">MUSIC VOLUME ({musicVolume}%)</label>
                     <input
                       type="range"
                       min={0}
                       max={100}
-                      value={activeData.bgOpacityPercent}
-                      onChange={(e) => setField({ bgOpacityPercent: Number(e.target.value) })}
+                      value={musicVolume}
+                      onChange={(e) => setMusicVolume(Number(e.target.value))}
                       className="w-full"
                     />
                   </div>
                   <div className="mt-3 flex gap-3">
                     <button
                       type="button"
-                      onClick={removeBgImage}
-                      disabled={!activeData.bgImage || isRendering}
+                      onClick={clearMusic}
+                      disabled={!musicUrl || isRendering}
                       className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
                     >
-                      Remove BG
-                    </button>
-                  </div>
-                </div>
-              ) : null}
-
-              <div className="rounded-2xl border border-white/10 bg-white/5 p-5 space-y-4">
-                <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Decorations (Upload Leaves)</div>
-
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP DECORATION IMAGE</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => onPickDecoTop(e.target.files?.[0] ?? null)}
-                    className="w-full text-sm"
-                  />
-                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP OPACITY ({activeData.decoTopOpacityPercent}%)</label>
-                      <input
-                        type="range"
-                        min={0}
-                        max={100}
-                        value={activeData.decoTopOpacityPercent}
-                        onChange={(e) => setField({ decoTopOpacityPercent: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP SCALE ({activeData.decoTopScalePercent}%)</label>
-                      <input
-                        type="range"
-                        min={10}
-                        max={250}
-                        value={activeData.decoTopScalePercent}
-                        onChange={(e) => setField({ decoTopScalePercent: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP X ({activeData.decoTopX}px)</label>
-                      <input
-                        type="range"
-                        min={-400}
-                        max={400}
-                        value={activeData.decoTopX}
-                        onChange={(e) => setField({ decoTopX: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">TOP Y ({activeData.decoTopY}px)</label>
-                      <input
-                        type="range"
-                        min={-400}
-                        max={400}
-                        value={activeData.decoTopY}
-                        onChange={(e) => setField({ decoTopY: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3 flex gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setField({ decoTopImage: null })}
-                      disabled={!activeData.decoTopImage || isRendering}
-                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
-                    >
-                      Remove Top
-                    </button>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM DECORATION IMAGE</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) => onPickDecoBottom(e.target.files?.[0] ?? null)}
-                    className="w-full text-sm"
-                  />
-                  <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM OPACITY ({activeData.decoBottomOpacityPercent}%)</label>
-                      <input
-                        type="range"
-                        min={0}
-                        max={100}
-                        value={activeData.decoBottomOpacityPercent}
-                        onChange={(e) => setField({ decoBottomOpacityPercent: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM SCALE ({activeData.decoBottomScalePercent}%)</label>
-                      <input
-                        type="range"
-                        min={10}
-                        max={250}
-                        value={activeData.decoBottomScalePercent}
-                        onChange={(e) => setField({ decoBottomScalePercent: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM X ({activeData.decoBottomX}px)</label>
-                      <input
-                        type="range"
-                        min={-400}
-                        max={400}
-                        value={activeData.decoBottomX}
-                        onChange={(e) => setField({ decoBottomX: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                    <div>
-                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">BOTTOM Y ({activeData.decoBottomY}px)</label>
-                      <input
-                        type="range"
-                        min={-1500}
-                        max={1500}
-                        value={activeData.decoBottomY}
-                        onChange={(e) => setField({ decoBottomY: Number(e.target.value) })}
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-3 flex gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setField({ decoBottomImage: null })}
-                      disabled={!activeData.decoBottomImage || isRendering}
-                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
-                    >
-                      Remove Bottom
+                      Remove Music
                     </button>
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">MUSIC (OPTIONAL)</label>
-                <input
-                  ref={musicInputRef}
-                  type="file"
-                  accept="audio/*"
-                  onChange={(e) => onPickMusic(e.target.files?.[0] ?? null)}
-                  className="w-full text-sm"
-                />
-                <div className="mt-3">
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">MUSIC VOLUME ({musicVolume}%)</label>
-                  <input
-                    type="range"
-                    min={0}
-                    max={100}
-                    value={musicVolume}
-                    onChange={(e) => setMusicVolume(Number(e.target.value))}
-                    className="w-full"
-                  />
-                </div>
-                <div className="mt-3 flex gap-3">
-                  <button
-                    type="button"
-                    onClick={clearMusic}
-                    disabled={!musicUrl || isRendering}
-                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
-                  >
-                    Remove Music
-                  </button>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">SECONDS / TEMPLATE</label>
-                  <input
-                    type="number"
-                    min={1}
-                    max={10}
-                    value={secondsPerCard}
-                    onChange={(e) => setSecondsPerCard(Number(e.target.value))}
-                    className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                  />
-                </div>
-                <div>
-                  <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">FPS</label>
-                  <input
-                    type="number"
-                    min={10}
-                    max={60}
-                    value={fps}
-                    onChange={(e) => setFps(Number(e.target.value))}
-                    className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
                 <button
                   type="button"
-                  onClick={generatePreview}
-                  disabled={isRendering}
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff5f91] to-[#7b5bff] px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-white shadow-[0_15px_30px_rgba(255,95,145,0.25)] transition hover:shadow-[0_25px_45px_rgba(123,91,255,0.35)] disabled:opacity-40"
+                  onClick={() => setMobileOpenSection('export')}
+                  className="lg:hidden w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-left"
                 >
-                  {isRendering ? `Rendering ${Math.round(progress * 100)}%` : 'Generate Preview'}
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Export</div>
+                    <div className="text-xs text-white/80">{mobileShowAll || mobileOpenSection === 'export' ? 'Hide' : 'Show'}</div>
+                  </div>
                 </button>
-                <button
-                  type="button"
-                  onClick={downloadPreview}
-                  disabled={!previewUrl || isRendering}
-                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
-                >
-                  Download
-                </button>
+                <div className={`${mobileShowAll || mobileOpenSection === 'export' ? 'block' : 'hidden'} lg:block mt-3 lg:mt-0 space-y-5`}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">SECONDS / TEMPLATE</label>
+                      <input
+                        type="number"
+                        min={1}
+                        max={10}
+                        value={secondsPerCard}
+                        onChange={(e) => setSecondsPerCard(Number(e.target.value))}
+                        className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                      />
+                    </div>
+                    <div>
+                      <label className="block font-mono text-xs tracking-wider text-chalk-gray mb-2">FPS</label>
+                      <input
+                        type="number"
+                        min={10}
+                        max={60}
+                        value={fps}
+                        onChange={(e) => setFps(Number(e.target.value))}
+                        className="w-full bg-transparent border border-white/15 px-4 py-3 text-sm focus:outline-none focus:border-white/40"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                    <button
+                      type="button"
+                      onClick={generatePreview}
+                      disabled={isRendering}
+                      className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff5f91] to-[#7b5bff] px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-white shadow-[0_15px_30px_rgba(255,95,145,0.25)] transition hover:shadow-[0_25px_45px_rgba(123,91,255,0.35)] disabled:opacity-40"
+                    >
+                      {isRendering ? `Rendering ${Math.round(progress * 100)}%` : 'Generate Preview'}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={downloadPreview}
+                      disabled={!previewUrl || isRendering}
+                      className="inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
+                    >
+                      Download
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {isRendering ? (
@@ -1297,7 +1444,7 @@ export default function WeddingInvitationPage() {
               ) : null}
             </div>
 
-            <div className="rounded-[28px] border border-white/10 bg-black/50 backdrop-blur p-8">
+            <div className="rounded-[28px] border border-white/10 bg-black/50 backdrop-blur p-4 sm:p-8">
               <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Preview</div>
 
               <div className="mt-5">
@@ -1319,7 +1466,7 @@ export default function WeddingInvitationPage() {
                     <div className="w-[30%]" style={{ backgroundColor: activeData.accent2 }} />
                     <div className="w-[18%]" style={{ backgroundColor: activeData.accent3 }} />
                   </div>
-                  <div className="p-4">
+                  <div className="p-3 sm:p-4">
                     <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-black">
                       <div style={{ paddingTop: `${(1920 / 1080) * 100}%` }} />
                       <canvas
