@@ -105,6 +105,18 @@ export default function AlphaToolsPage() {
                   Open
                 </div>
               </Link>
+
+              <Link
+                href="/invitation-studio"
+                className="group rounded-[28px] border border-white/10 bg-black/50 backdrop-blur p-8 transition hover:border-white/25"
+              >
+                <div className="text-xs font-mono uppercase tracking-[0.35em] text-chalk-gray">Tool</div>
+                <div className="mt-3 text-2xl font-bold text-chalk-white">Invitation Studio</div>
+                <div className="mt-3 text-sm text-chalk-gray">Reels-like editor: add text + images, drag on stage, add music, export .webm.</div>
+                <div className="mt-6 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#ff5f91] to-[#7b5bff] px-6 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white shadow-[0_15px_30px_rgba(255,95,145,0.25)]">
+                  Open
+                </div>
+              </Link>
             </div>
           ) : null}
         </div>

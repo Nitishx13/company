@@ -26,10 +26,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/wedding-invitation/page.js"
     ],
-    "/_not-found/page": [
+    "/proposal/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/proposal/page.js"
+    ],
+    "/invitation-studio/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/invitation-studio/page.js"
     ]
   }
 }
