@@ -911,6 +911,17 @@ export default function WeddingInvitationPage() {
                       <option value={4}>Venue</option>
                     </select>
                   </div>
+                  <div className="mt-3">
+                    <button
+                      type="button"
+                      onClick={() => setStep((s) => (s === 4 ? 4 : ((s + 1) as 1 | 2 | 3 | 4)))}
+                      disabled={isRendering || step === 4}
+                      className="w-full inline-flex items-center justify-center rounded-full border border-white/20 px-8 py-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-white/90 transition hover:border-white hover:text-white disabled:opacity-40"
+                    >
+                      Next Template
+                    </button>
+                    <div className="mt-2 text-xs text-chalk-gray">Use this to quickly move to the next screen.</div>
+                  </div>
                 </div>
               </div>
 
