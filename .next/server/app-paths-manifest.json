@@ -1,7 +1,11 @@
 {
   "/page": "app/page.js",
-  "/services/page": "app/services/page.js",
   "/work/page": "app/work/page.js",
+  "/services/page": "app/services/page.js",
+  "/services/branding/page": "app/services/branding/page.js",
+  "/services/marketing/page": "app/services/marketing/page.js",
   "/contact/page": "app/contact/page.js",
-  "/about/page": "app/about/page.js"
+  "/about/page": "app/about/page.js",
+  "/services/web-development/page": "app/services/web-development/page.js",
+  "/services/ai-automation/page": "app/services/ai-automation/page.js"
 }
