@@ -1,7 +1,4 @@
 {
-  "/page": "app/page.js",
-  "/services/ai-automation/page": "app/services/ai-automation/page.js",
-  "/services/page": "app/services/page.js",
-  "/work/page": "app/work/page.js",
-  "/about/page": "app/about/page.js"
+  "/capabilities/page": "app/capabilities/page.js",
+  "/proposal/page": "app/proposal/page.js"
 }

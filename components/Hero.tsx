@@ -19,8 +19,7 @@ export default function Hero() {
       <div className="relative max-w-6xl w-full space-y-10 text-center">
         <div className="space-y-6 px-6">
           <p className="text-sm font-mono uppercase tracking-[0.8em] text-white/60">
-            Results
-          </p>
+Trusted Digital Agency          </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white">
             Results <span className="text-white/60">&gt;</span>{' '}
             <span className="bg-gradient-to-r from-sky-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">

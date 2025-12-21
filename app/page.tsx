@@ -193,11 +193,12 @@ export default function Home() {
             >
               Start a Project
             </a>
-            <button
+            <a
+              href="/capabilities"
               className="inline-flex items-center justify-center rounded-full border border-white/40 px-10 py-4 text-xs font-semibold uppercase tracking-[0.4em] text-white/80 transition hover:border-white hover:text-white"
             >
               Download Capabilities
-            </button>
+            </a>
           </div>
         </div>
       </section>
