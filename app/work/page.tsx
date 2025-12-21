@@ -1,7 +1,6 @@
 'use client';
 
 import MathBackground from '@/components/MathBackground';
-import Image from 'next/image';
 
 const project = {
   name: 'Digntag.in',
@@ -30,13 +29,10 @@ export default function WorkPage() {
           <div className="mt-12 text-left">
             <div className="rounded-[32px] border border-white/10 bg-black/50 backdrop-blur shadow-[0_20px_60px_rgba(0,0,0,0.6)] overflow-hidden">
               <div className="relative aspect-video bg-black/40">
-                <Image
+                <img
                   src={project.screenshotSrc}
                   alt={`${project.name} screenshot`}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 900px"
-                  priority
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
 

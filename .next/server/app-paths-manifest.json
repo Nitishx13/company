@@ -1,7 +1,5 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/services/page": "app/services/page.js",
-  "/services/web-development/page": "app/services/web-development/page.js",
   "/services/marketing/page": "app/services/marketing/page.js",
   "/about/page": "app/about/page.js",
   "/services/ai-automation/page": "app/services/ai-automation/page.js",
