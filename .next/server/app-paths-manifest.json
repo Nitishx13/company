@@ -1,5 +1,5 @@
 {
-  "/alpha/page": "app/alpha/page.js",
+  "/wedding-invitation/page": "app/wedding-invitation/page.js",
   "/reels/page": "app/reels/page.js",
-  "/wedding-invitation/page": "app/wedding-invitation/page.js"
+  "/alpha/page": "app/alpha/page.js"
 }

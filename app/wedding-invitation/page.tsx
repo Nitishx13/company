@@ -13,6 +13,11 @@ type InviteFields = {
   textColor: string;
   labelColor: string;
 
+  // UI accents (preview header bar)
+  accent1: string;
+  accent2: string;
+  accent3: string;
+
   // Main background
   bgMode: 'gradient' | 'color' | 'image';
   bgColor: string;
@@ -58,6 +63,9 @@ const defaultFields = (template: TemplateId): InviteFields => {
       groomName: 'Vidhi',
       textColor: '#f2d37b',
       labelColor: '#072b33',
+      accent1: '#0a3a45',
+      accent2: '#f2d37b',
+      accent3: '#072b33',
       bgMode: 'gradient',
       bgColor: '#0a3a45',
       bgImage: null,
@@ -91,6 +99,9 @@ const defaultFields = (template: TemplateId): InviteFields => {
       groomName: 'Vidhi',
       textColor: '#f2d37b',
       labelColor: '#072b33',
+      accent1: '#0a3a45',
+      accent2: '#f2d37b',
+      accent3: '#072b33',
       bgMode: 'gradient',
       bgColor: '#0a3a45',
       bgImage: null,
@@ -124,6 +135,9 @@ const defaultFields = (template: TemplateId): InviteFields => {
       groomName: 'Vidhi',
       textColor: '#f2d37b',
       labelColor: '#072b33',
+      accent1: '#0a3a45',
+      accent2: '#f2d37b',
+      accent3: '#072b33',
       bgMode: 'gradient',
       bgColor: '#0a3a45',
       bgImage: null,
@@ -156,6 +170,9 @@ const defaultFields = (template: TemplateId): InviteFields => {
     groomName: 'Vidhi',
     textColor: '#f2d37b',
     labelColor: '#072b33',
+    accent1: '#0a3a45',
+    accent2: '#f2d37b',
+    accent3: '#072b33',
     bgMode: 'gradient',
     bgColor: '#0a3a45',
     bgImage: null,
