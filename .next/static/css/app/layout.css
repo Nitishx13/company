@@ -785,6 +785,9 @@ video {
 .mb-14 {
   margin-bottom: 3.5rem;
 }
+.mt-12 {
+  margin-top: 3rem;
+}
 .block {
   display: block;
 }
@@ -1223,6 +1226,10 @@ video {
 .bg-clip-text {
   -webkit-background-clip: text;
           background-clip: text;
+}
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .p-10 {
   padding: 2.5rem;
@@ -1739,6 +1746,18 @@ video {
     flex-direction: row;
   }
 
+  .md\:items-center {
+    align-items: center;
+  }
+
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+
+  .md\:p-10 {
+    padding: 2.5rem;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -1767,6 +1786,11 @@ video {
   .md\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .md\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 }
 
