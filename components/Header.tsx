@@ -23,6 +23,7 @@ export default function Header() {
     { href: '/about', label: 'About' },
     { href: '/services', label: 'Services' },
     { href: '/work', label: 'Work' },
+    { href: '/capabilities', label: 'Capabilities' },
     { href: '/contact', label: 'Contact' },
   ];
 

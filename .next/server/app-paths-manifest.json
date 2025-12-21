@@ -1,7 +1,7 @@
 {
   "/page": "app/page.js",
   "/capabilities/page": "app/capabilities/page.js",
-  "/services/page": "app/services/page.js",
-  "/work/page": "app/work/page.js",
-  "/about/page": "app/about/page.js"
+  "/letterhead/page": "app/letterhead/page.js",
+  "/alpha/page": "app/alpha/page.js",
+  "/instagram-post/page": "app/instagram-post/page.js"
 }
