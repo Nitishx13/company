@@ -1,7 +1,5 @@
 {
-  "/page": "app/page.js",
-  "/capabilities/page": "app/capabilities/page.js",
-  "/letterhead/page": "app/letterhead/page.js",
   "/alpha/page": "app/alpha/page.js",
-  "/instagram-post/page": "app/instagram-post/page.js"
+  "/reels/page": "app/reels/page.js",
+  "/wedding-invitation/page": "app/wedding-invitation/page.js"
 }
