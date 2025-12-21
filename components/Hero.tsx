@@ -19,21 +19,17 @@ export default function Hero() {
       <div className="relative max-w-6xl w-full space-y-10 text-center">
         <div className="space-y-6 px-6">
           <p className="text-sm font-mono uppercase tracking-[0.8em] text-white/60">
-            A digital marketing agency
+            Results
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white">
-            A digital marketing agency for{' '}
+            Results <span className="text-white/60">&gt;</span>{' '}
             <span className="bg-gradient-to-r from-sky-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-              businesses
-            </span>{' '}
-            looking for{' '}
-            <span className="bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500 bg-clip-text text-transparent">
-              serious growth
+              Everything
             </span>
           </h1>
           <p className="mx-auto max-w-3xl text-base md:text-lg text-white/80 leading-relaxed">
-            Request a free review of your website and digital marketing. We’ll show you how to hit
-            your business’s revenue goals and dominate your competitors with a results-driven agency.
+            We focus on what actually moves the needle—data-driven strategy, relentless execution, and measurable outcomes.
+            No fluff, no shortcuts, just results you can track and scale.
           </p>
         </div>
 
