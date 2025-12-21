@@ -1,7 +1,7 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
   "/alpha/page": "app/alpha/page.js",
-  "/wedding-invitation/page": "app/wedding-invitation/page.js",
   "/reels/page": "app/reels/page.js",
+  "/page": "app/page.js",
+  "/wedding-invitation/page": "app/wedding-invitation/page.js",
   "/invitation-studio/page": "app/invitation-studio/page.js"
 }
