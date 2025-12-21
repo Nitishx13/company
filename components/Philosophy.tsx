@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 const principles = [
   {
@@ -33,24 +33,6 @@ const principles = [
 export default function Philosophy() {
   const sectionRef = useRef<HTMLElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('opacity-100', 'translate-x-0');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const principles = sectionRef.current?.querySelectorAll('.principle-item');
-    principles?.forEach((item) => observer.observe(item));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="philosophy"
@@ -76,7 +58,7 @@ export default function Philosophy() {
           {principles.map((principle, index) => (
             <div
               key={index}
-              className="principle-item opacity-0 -translate-x-8 transition-all duration-700"
+              className="principle-item opacity-100 translate-x-0 transition-all duration-700"
               style={{ transitionDelay: `${index * 100}ms` }}
             >
               <div className="border-l-2 border-chalk-white/30 pl-8 py-4 hover:border-chalk-white transition-colors duration-300">
