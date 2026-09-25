@@ -18,6 +18,11 @@ export default function Footer() {
       { label: 'Marketing & SEO', href: '/services/marketing' },
       { label: 'AI & Automation', href: '/services/ai-automation' },
     ],
+    products: [
+      { label: 'GMBQYN Reputation', href: '/gmbqyn' },
+      { label: 'GMBQYN Pricing', href: '/gmbqyn/pricing' },
+      { label: 'GMBQYN Sign in', href: '/gmbqyn/login' },
+    ],
     social: [
       { label: 'LinkedIn', href: 'https://linkedin.com' },
       { label: 'Instagram', href: 'https://instagram.com' },
@@ -30,7 +35,7 @@ export default function Footer() {
     <footer className="relative z-10 border-t border-chalk-gray/30 mt-32">
       <div className="max-w-7xl mx-auto px-6 py-16">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6 group">
@@ -91,6 +96,25 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-chalk-gray hover:text-chalk-white transition-colors duration-300 text-sm"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Products Links */}
+          <div>
+            <h3 className="font-mono text-xs tracking-wider text-chalk-gray mb-4">
+              PRODUCTS
+            </h3>
+            <ul className="space-y-3">
+              {footerLinks.products.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
